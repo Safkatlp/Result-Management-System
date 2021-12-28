@@ -1,0 +1,39 @@
+.contactBG{
+    /*background-image: url("/../static/image/contact_Carosoul/theMongers.jpg");*/
+    background-color: black;
+}
+
+.navbarText{
+    color: white;
+}
+
+.navbarText:hover{
+    color: yellow;
+}
+
+
+.sidebarText{
+    color: white;
+}
+.footerText{
+    color: white;
+}
+
+.footerText:hover{
+    color: yellow;
+}
+
+.footerSvgFill{
+    fill: white;
+    
+}
+.footerSvgFill:hover{
+    fill: yellow;
+}
+
+.bg-custom{
+    /* /* background-image: url("img_tree.gif"), url("paper.gif"); */
+    
+    background-image: url("image/home_Carosoul/light2.jpg"); 
+    
+}
