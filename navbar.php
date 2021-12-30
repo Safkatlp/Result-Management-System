@@ -1,15 +1,15 @@
 <!--navbar-->
-<nav class="navbar sticky-top navbar-expand-lg px-3 bg-dark  ">
+<nav class=" navbar sticky-top  px-3 bg-dark  ">
         <div class="container-fluid ">
-          <a class="navbar-brand navbarText" href="#">
+          <a class="navbar-brand navbarText" href="home.php">
                 <img src="image/theMongers.jpg" alt="" width="30" height="24" class="d-inline-block align-text-top">
                 Walter School
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0 m-auto ">
+         <!-- <div class="collapse navbar-collapse " id="navbarSupportedContent">
+             <ul class="navbar-nav me-auto mb-2 mb-lg-0 m-auto ">
               <li class="nav-item">
                 <a class="nav-link active navbarText " aria-current="page" href="home.php">Home</a>
               </li>
@@ -31,11 +31,12 @@
                 <a class="nav-link disabled">Contact</a>
                 <a class="nav-link navbarText" href = "contact.php">Contact</a>
               </li>
-            </ul> 
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>-->
+            </ul> -->
+            <div class="d-flex">
+              <label class= "text-white px-3 m-auto" for="logout"><?php echo $_SESSION['user']?></label>
+              
+              <a href = "logout.php"><button class="btn btn-outline-danger" type="button" id = "logout">Log Out</button></a>
+            </div> 
           </div>
         </div>
     </nav>

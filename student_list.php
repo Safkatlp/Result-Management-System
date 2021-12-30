@@ -1,4 +1,11 @@
-<?php 
+<?php
+  session_start();
+  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true){
+      header("location: login.php");
+      exit;
+  }
+
+
 $update_success = false;
 $update_failed = false;
 $delete_success = false;

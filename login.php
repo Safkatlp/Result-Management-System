@@ -1,6 +1,55 @@
 <?php
+  $login_success = false;
+  $login_failed = false;
+  
+  $alert_message = "";
+
+
+include_once('dbConnection.php');
+
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+    $user = $_POST['userName'];
+    $pass = $_POST['password'];
     
+
+   
+
+        $select = "SELECT * FROM `tblusers` WHERE user = '$user' AND password = '$pass';";
+
+        $result = mysqli_query($con,$select);
+        $num =  mysqli_num_rows($result);
+
+        if($num == 1){
+            $login_success = true;
+            $alert_message = "<strong>Success!</strong> Login Success";
+
+            //starting the session
+            session_start();
+            $_SESSION['loggedin'] = true;
+            $_SESSION['user'] = $user;
+            header("location: home.php");
+
+
+        }else{
+            $login_failed = true;
+            $alert_message = "<strong>Error!</strong> Invalid Credentials";
+        }
+
+        
+        
+    }
+   
+
+    
+  
+      mysqli_close($con);
+
+
+
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,19 +63,18 @@
 
 <body>
     <!--navbar-->
+    <!--navbar-->
     <?php
-    session_start();
-    if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true){
-       include_once('navbarlogout.php');
-    }
-    else{
-        include_once('navbar.php');
-    }
-   
-    
-    
-    ?>
+    include_once('navbarlogout.php');
 
+     include_once('alert.php');
+      if($login_success == true){
+        show_alert("success",$alert_message);
+      }else if($login_failed == true){
+        show_alert("warning",$alert_message);
+      }
+      
+  ?>
 
 
     <div class="row">
@@ -54,69 +102,32 @@
 
                 <!--contact form-->
                 <div class="container">
-                    <form method="post" action="/contact/">
-
+                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
+                        <h2 class="text-center text-light mb-4">Login </h2>
                         <div class="container border border-primary bg-dark text-light my-5 pb-3 col-8 row g-3  m-auto">
-                            <div class="col-md-6">
-                                <label for="iputFirstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="iputFirstName" name="firstName">
+                            <div class="col-md-12">
+                                <label for="userName" class="form-label">Uesr Name</label>
+                                <input type="text" class="form-control" id="userName" name="userName" required>
                             </div>
-                            <div class="col-md-6">
-                                <label for="iputLastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="iputLastName" name="lastName">
-                            </div>
+                           
                             <div class="col-12">
-                                <label for="inputEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="inputEmail"
-                                    placeholder="username@example.com" name="email">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
                             </div>
-                            <div class="form-group">
-                                <label for="inputMessage">Enter Message</label>
-                                <textarea class="form-control" id="inputMessage" rows="3"
-                                    placeholder="Enter Message Here..." name="message"></textarea>
-                            </div>
+
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-success">Login</button>
+                                <a href = "signup.php"><button type="button" class="btn btn-primary">Sign Up</button></a>
                             </div>
+                            
+                                
+                            
                         </div>
                     </form>
                 </div>
 
 
 
-
-                <div class="container bg-dark mb-1 mr-1 ml-2 p-1">
-                    <h2 class="text-center text-light mb-4">Contact Us </h2>
-                    <div class="row container-fluid">
-                        <div class="col-8 d-flex">
-                            <div class="row text-light">
-                                <div class="col-3">
-                                    <img src="image/theMongers.jpg" class="img-fluid" alt="...">
-                                </div>
-
-                                <div class="col-5">
-                                    <h2>THE MONGERS</h2>
-                                    <address>
-                                        <p>Zakir Hossain Road</p>
-                                        <p>Email:
-                                            <a href="mailto:themongers.bd@gmail.coms">themongers.bd@gmail.com</a>.<br>
-                                        </p>
-                                        <p>Mobile:
-                                            <a href="tel:123-456-7890">123-456-7890</a>
-                                        </p>
-
-                                    </address>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-4 col-md align-items-center justify-item-center d-flex">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3689.78380650153!2d91.80472071446783!3d22.361790646311928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd8f1855cbb4d%3A0x6b470547c160f0ff!2sZakir%20Hossain%20Rd%2C%20Chittagong!5e0!3m2!1sen!2sbd!4v1640093286458!5m2!1sen!2sbd"
-                                width="420" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                        </div>
-                    </div>
-                </div>
 
             </div>
 
@@ -172,8 +183,8 @@
                 </div>
 
                 <ul class="nav col-md-4 justify-content-center">
-                    <li class="nav-item"><a href="home.php" class="nav-link px-2 footerText"> Home</a></li>
                     <li class="nav-item"><a href="#" class="nav-link px-2 footerText">Features</a></li>
+                    <li class="nav-item"><a href="contact.php" class="nav-link px-2 footerText"> Contact Developers</a></li>
                     <li class="nav-item"><a href="#" class="nav-link px-2 footerText">Pricing</a></li>
                     <li class="nav-item"><a href="#" class="nav-link px-2 footerText">FAQs</a></li>
 

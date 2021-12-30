@@ -1,4 +1,10 @@
-<?php 
+<?php
+  session_start();
+  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true){
+      header("location: login.php");
+      exit;
+  }
+
   $submit_success = false;
   $submit_failed = false;
   $alert_message = "";

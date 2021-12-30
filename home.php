@@ -1,10 +1,19 @@
+<?php
+  session_start();
+  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true){
+      header("location: login.php");
+      exit;
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
   <?php include_once('base_head.php')?>
-  <title> </title>
+  <title>Welcome | <?php echo $_SESSION['user']?> </title>
 
 </head>
 
